@@ -1,0 +1,61 @@
+% Examples with minesweeper
+
+% There is a mine at cell a
+mine(a).
+
+% Rule/implication
+% using a and b as constants
+% If there is a mine at a, there is no mine at b
+
+not(mine(b)) :- mine(a).
+    
+% using A and B are variables
+not(mine(B)) :- mine(A).
+
+
+
+
+
+% Implications
+
+:- discontiguous
+    child/2,
+    sibling/2,
+    spouse/2,
+    father/2,
+    mother/2.
+    
+% Rules
+
+child(A,B) :- father(B,A).
+child(A,B) :- mother(B,A).
+mother(A,B) :- father(C,B), spouse(A, C).
+sibling(A,B) :- child(A,C), child(B,C), A \= B.
+sibling(A,B) :- father(C, A), father(C, B), A \= B.
+brother(A,B) :- sibling(A,B), male(A).
+brother(A,B) :- sibling(A,B), male(B).
+    
+% Male, Female
+male(bob).
+male(luke).
+male(fred).
+male(sammy).
+male(jack).
+female(sue).
+female(jill).
+female(sally).
+
+% Spouse Relationships
+spouse(bob, sue).
+spouse(sue, bob).
+spouse(jill, luke).
+spouse(luke, jill).
+
+
+% Father Child Relationships
+father(bob, jill).
+father(bob, jake).
+father(bob, fred).
+
+father(luke, sammy).
+father(luke, sally).
